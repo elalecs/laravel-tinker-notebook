@@ -558,18 +558,18 @@ export class ResultRenderer {
                     
                     // Generate detailed descriptions based on error type
                     switch (type) {
-                        case 'Error de sintaxis':
+                        case 'Syntax Error':
                             errorInfo.errorDescription = match[1] ? 
                                 `Error de sintaxis: ${match[1]}` : 
                                 'Error de sintaxis en el código PHP';
                             break;
                             
-                        case 'Clase no encontrada':
+                        case 'Class not found':
                             const className = match[1] || 'desconocida';
                             errorInfo.errorDescription = `La clase '${className}' no fue encontrada. Verifica que esté definida o importada correctamente.`;
                             break;
                             
-                        case 'Variable no definida':
+                        case 'Undefined variable':
                             const varName = match[1] || 'desconocida';
                             errorInfo.errorDescription = `La variable '$${varName}' no ha sido definida antes de ser utilizada.`;
                             break;
@@ -690,7 +690,7 @@ export class ResultRenderer {
         
         // Customize styles based on error type
         switch (errorType) {
-            case 'Error de sintaxis':
+            case 'Syntax Error':
                 return vscode.window.createTextEditorDecorationType({
                     ...baseErrorStyle,
                     backgroundColor: 'rgba(255, 0, 0, 0.1)',
@@ -730,10 +730,10 @@ export class ResultRenderer {
                     overviewRulerLane: vscode.OverviewRulerLane.Right
                 });
                 
-            case 'Variable no definida':
+            case 'Undefined variable':
             case 'Función no definida':
             case 'Método no definido':
-            case 'Clase no encontrada':
+            case 'Class not found':
                 return vscode.window.createTextEditorDecorationType({
                     ...baseErrorStyle,
                     backgroundColor: 'rgba(128, 0, 128, 0.1)',
@@ -777,7 +777,7 @@ export class ResultRenderer {
         let gutterIconPath: string;
         
         switch (errorType) {
-            case 'Error de sintaxis':
+            case 'Syntax Error':
             case 'Error fatal':
                 gutterIconPath = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTguNiAyLjRhLjkuOSAwIDAgMC0xLjIgMEw0LjggNC45Yy0uMy4zLS4zLjkgMCAxLjJsNi42IDYuNmMuMy4zLjkuMyAxLjIgMGwyLjYtMi42Yy4zLS4zLjMtLjkgMC0xLjJMOC42IDIuNHoiIGZpbGw9IiNmZjAwMDAiLz48L3N2Zz4=';
                 break;
@@ -912,7 +912,7 @@ export class ResultRenderer {
         const suggestions: string[] = [];
         
         switch (errorType) {
-            case 'Error de sintaxis':
+            case 'Syntax Error':
                 suggestions.push('Check that all braces, parentheses, and semicolons are correctly placed.');
                 suggestions.push('Make sure that string literals are properly closed with quotes.');
                 suggestions.push('Review the syntax of control structures (if, for, while, etc.).');
@@ -923,14 +923,14 @@ export class ResultRenderer {
                 suggestions.push('Check that you are not trying to access methods or properties of a null object.');
                 break;
                 
-            case 'Clase no encontrada':
+            case 'Class not found':
                 const className = errorDescription.match(/['"]([^'"]+)['"]/)?.[1] || '';
                 suggestions.push(`Check that the class '${className}' is defined in your project.`);
                 suggestions.push(`Make sure you have correctly imported the namespace with 'use ${className}'.`);
                 suggestions.push('Check that the class name is spelled correctly, respecting uppercase and lowercase.');
                 break;
                 
-            case 'Variable no definida':
+            case 'Undefined variable':
                 const varName = errorDescription.match(/\$(\w+)/)?.[1] || '';
                 suggestions.push(`Define the variable '$${varName}' before using it.`);
                 suggestions.push(`Check the spelling of the variable '$${varName}'.`);
@@ -986,14 +986,14 @@ export class ResultRenderer {
      */
     private generateErrorFix(errorType: string, errorDescription: string): string | null {
         switch (errorType) {
-            case 'Variable no definida':
+            case 'Undefined variable':
                 const varName = errorDescription.match(/\$(\w+)/)?.[1] || '';
                 if (varName) {
                     return `$${varName} = null; // Initialize variable`;
                 }
                 break;
                 
-            case 'Clase no encontrada':
+            case 'Class not found':
                 const className = errorDescription.match(/['"]([^'"]+)['"]/)?.[1] || '';
                 if (className) {
                     // Try to extract the namespace
@@ -1085,23 +1085,23 @@ export class ResultRenderer {
                          
         if (resultId) {
             const isCollapsed = this.collapsedResults.get(resultId) || false;
-            const collapseText = isCollapsed ? 'Expandir' : 'Colapsar';
+            const collapseText = isCollapsed ? 'Expand' : 'Collapse';
             buttons.push(`[${collapseText}](command:laravel-tinker-notebook.toggleResultCollapse?${encodeURIComponent(JSON.stringify([resultId]))})`); 
         }
         
-        // Añadir botones para expandir/colapsar todos los resultados
-        buttons.push(`[Expandir Todos](command:laravel-tinker-notebook.expandAllResults)`);
-        buttons.push(`[Colapsar Todos](command:laravel-tinker-notebook.collapseAllResults)`);
+        // Add buttons to expand/collapse all results
+        buttons.push(`[Expand All](command:laravel-tinker-notebook.expandAllResults)`);
+        buttons.push(`[Collapse All](command:laravel-tinker-notebook.collapseAllResults)`);
         
         hoverMessage.appendMarkdown(`${buttons.join(' | ')}\n\n`);
         
         // Verificar si este resultado está colapsado
         const isCollapsed = resultId ? (this.collapsedResults.get(resultId) || false) : false;
         
-        // Si está colapsado, mostrar solo un resumen
+        // If collapsed, show only a summary
         if (isCollapsed) {
-            hoverMessage.appendMarkdown(`### Resultado (Colapsado)\n\n`);
-            hoverMessage.appendMarkdown(`Haz clic en 'Expandir' para ver el resultado completo.\n\n`);
+            hoverMessage.appendMarkdown(`### Result (Collapsed)\n\n`);
+            hoverMessage.appendMarkdown(`Click on 'Expand' to see the full result.\n\n`);
         } else {
             let formattedOutput = result.output;
             let languageId = 'plaintext';
@@ -1114,19 +1114,19 @@ export class ResultRenderer {
             }
             
             if (result.error) {
-                // Analizar el error para obtener información detallada
+                // Analyze the error to get detailed information
                 const codeBlockForFix = { range: new vscode.Range(0, 0, 0, 0), code: '', language: '' };
                 if (resultId && resultId.startsWith('hover-')) {
-                    // Si es un hover, usar un bloque de código vacío
+                    // If it's a hover, use an empty code block
                     codeBlockForFix.range = new vscode.Range(0, 0, 0, 0);
                 } else {
-                    // Intentar obtener el bloque de código real asociado al resultado
+                    // Try to get the actual code block associated with the result
                     const editor = vscode.window.activeTextEditor;
                     if (editor) {
-                        // Buscar la línea con error en el mapa
+                        // Find the error line in the map
                         const errorLine = this.errorLineMap.get(resultId || '');
                         if (errorLine !== undefined) {
-                            // Crear un rango que abarque toda la línea
+                            // Create a range that covers the entire line
                             const line = editor.document.lineAt(errorLine);
                             codeBlockForFix.range = new vscode.Range(errorLine, 0, errorLine, line.text.length);
                             codeBlockForFix.code = line.text;
@@ -1136,94 +1136,94 @@ export class ResultRenderer {
                 
                 const errorInfo = this.parseErrorAndHighlight(result.error, codeBlockForFix, resultId || 'hover-' + Date.now());
                 
-                // Mostrar información detallada del error con estilo mejorado
+                // Show detailed error information with improved style
                 hoverMessage.appendMarkdown(`### ❌ Error: ${errorInfo.errorType}\n\n`);
-                hoverMessage.appendMarkdown(`**Descripción:** ${errorInfo.errorDescription}\n\n`);
+                hoverMessage.appendMarkdown(`**Description:** ${errorInfo.errorDescription}\n\n`);
                 
-                // Mostrar información de la línea donde ocurrió el error
+                // Show information about the line where the error occurred
                 if (codeBlockForFix.code) {
-                    const lineNumber = errorInfo.errorLine + 1; // Convertir a 1-indexed para mostrar al usuario
-                    hoverMessage.appendMarkdown(`**Línea ${lineNumber}:** \`${codeBlockForFix.code.trim()}\`\n\n`);
+                    const lineNumber = errorInfo.errorLine + 1; // Convert to 1-indexed for user display
+                    hoverMessage.appendMarkdown(`**Line ${lineNumber}:** \`${codeBlockForFix.code.trim()}\`\n\n`);
                 }
                 
-                // Mostrar mensaje completo con formato mejorado
-                hoverMessage.appendMarkdown(`**Mensaje completo:**\n\n\`\`\`php\n${result.error}\n\`\`\`\n\n`);
+                // Show complete message with improved formatting
+                hoverMessage.appendMarkdown(`**Complete message:**\n\n\`\`\`php\n${result.error}\n\`\`\`\n\n`);
                 
-                // Verificar si hay una solución rápida disponible
+                // Check if a quick fix is available
                 const fixCode = this.generateErrorFix(errorInfo.errorType, errorInfo.errorDescription);
                 if (fixCode) {
-                    // Añadir botón para aplicar la solución rápida
+                    // Add button to apply the quick fix
                     const errorInfoForCommand = {
                         errorType: errorInfo.errorType,
                         errorDescription: errorInfo.errorDescription,
                         codeBlock: codeBlockForFix
                     };
                     
-                    hoverMessage.appendMarkdown(`**Solución rápida disponible:** [Aplicar solución](command:laravel-tinker-notebook.applyErrorFix?${encodeURIComponent(JSON.stringify([errorInfoForCommand]))})\n\n`);
+                    hoverMessage.appendMarkdown(`**Quick fix available:** [Apply fix](command:laravel-tinker-notebook.applyErrorFix?${encodeURIComponent(JSON.stringify([errorInfoForCommand]))})\n\n`);
                     
-                    // Mostrar vista previa del código de corrección
-                    hoverMessage.appendMarkdown(`**Vista previa de la solución:**\n\n\`\`\`php\n${fixCode}\n\`\`\`\n\n`);
+                    // Show preview of the fix code
+                    hoverMessage.appendMarkdown(`**Fix preview:**\n\n\`\`\`php\n${fixCode}\n\`\`\`\n\n`);
                 }
                 
-                // Añadir sugerencias para solucionar errores comunes con formato mejorado
+                // Add suggestions to fix common errors with improved formatting
                 const suggestions = this.getErrorSuggestions(errorInfo.errorType, errorInfo.errorDescription);
                 if (suggestions.length > 0) {
-                    hoverMessage.appendMarkdown(`### 💡 Sugerencias de solución\n\n`);
+                    hoverMessage.appendMarkdown(`### 💡 Solution Suggestions\n\n`);
                     suggestions.forEach((suggestion, index) => {
                         hoverMessage.appendMarkdown(`**${index + 1}.** ${suggestion}\n\n`);
                     });
                 }
                 
-                // Añadir enlaces a documentación relevante según el tipo de error
-                hoverMessage.appendMarkdown(`### 📚 Recursos adicionales\n\n`);
+                // Add links to relevant documentation based on error type
+                hoverMessage.appendMarkdown(`### 📚 Additional Resources\n\n`);
                 
                 switch (errorInfo.errorType) {
-                    case 'Error de sintaxis':
-                        hoverMessage.appendMarkdown(`- [Manual de PHP: Sintaxis básica](https://www.php.net/manual/es/language.basic-syntax.php)\n`);
+                    case 'Syntax Error':
+                        hoverMessage.appendMarkdown(`- [PHP Manual: Basic Syntax](https://www.php.net/manual/en/language.basic-syntax.php)\n`);
                         break;
-                    case 'Clase no encontrada':
+                    case 'Class not found':
                         hoverMessage.appendMarkdown(`- [Laravel: Autoloading](https://laravel.com/docs/autoloading)\n`);
-                        hoverMessage.appendMarkdown(`- [PHP: Namespaces](https://www.php.net/manual/es/language.namespaces.php)\n`);
+                        hoverMessage.appendMarkdown(`- [PHP: Namespaces](https://www.php.net/manual/en/language.namespaces.php)\n`);
                         break;
-                    case 'Método no definido':
-                    case 'Propiedad no definida':
+                    case 'Method not defined':
+                    case 'Property not defined':
                         hoverMessage.appendMarkdown(`- [Laravel: Eloquent ORM](https://laravel.com/docs/eloquent)\n`);
-                        hoverMessage.appendMarkdown(`- [PHP: Clases y Objetos](https://www.php.net/manual/es/language.oop5.php)\n`);
+                        hoverMessage.appendMarkdown(`- [PHP: Classes and Objects](https://www.php.net/manual/en/language.oop5.php)\n`);
                         break;
-                    case 'Variable no definida':
-                        hoverMessage.appendMarkdown(`- [PHP: Variables](https://www.php.net/manual/es/language.variables.php)\n`);
+                    case 'Undefined variable':
+                        hoverMessage.appendMarkdown(`- [PHP: Variables](https://www.php.net/manual/en/language.variables.php)\n`);
                         break;
-                    case 'Error de acceso a array':
-                    case 'Índice no definido':
-                        hoverMessage.appendMarkdown(`- [PHP: Arrays](https://www.php.net/manual/es/language.types.array.php)\n`);
+                    case 'Array access error':
+                    case 'Undefined index':
+                        hoverMessage.appendMarkdown(`- [PHP: Arrays](https://www.php.net/manual/en/language.types.array.php)\n`);
                         break;
                     default:
-                        hoverMessage.appendMarkdown(`- [Manual de PHP](https://www.php.net/manual/es/)\n`);
-                        hoverMessage.appendMarkdown(`- [Documentación de Laravel](https://laravel.com/docs)\n`);
+                        hoverMessage.appendMarkdown(`- [PHP Manual](https://www.php.net/manual/en/)\n`);
+                        hoverMessage.appendMarkdown(`- [Laravel Documentation](https://laravel.com/docs)\n`);
                 }
                 
                 hoverMessage.appendMarkdown(`\n`);
             } else {
-                hoverMessage.appendMarkdown(`### Resultado\n\n\`\`\`${languageId}\n${formattedOutput}\n\`\`\`\n\n`);
+                hoverMessage.appendMarkdown(`### Result\n\n\`\`\`${languageId}\n${formattedOutput}\n\`\`\`\n\n`);
             }
             
-            // Añadir información de sesión con formato mejorado
+            // Add session information with improved formatting
             if (result.sessionId) {
-                const sessionStatusIcon = result.sessionActive ? '🟢' : '🔴'; // Verde o rojo
-                const sessionStatus = result.sessionActive ? 'Activa' : 'Inactiva';
+                const sessionStatusIcon = result.sessionActive ? '🟢' : '🔴'; // Green or red
+                const sessionStatus = result.sessionActive ? 'Active' : 'Inactive';
                 
-                hoverMessage.appendMarkdown(`### ${sessionStatusIcon} Información de Sesión\n\n`);
-                hoverMessage.appendMarkdown(`- **ID de Sesión**: \`${result.sessionId}\`\n`);
-                hoverMessage.appendMarkdown(`- **Estado**: ${sessionStatus}\n`);
-                hoverMessage.appendMarkdown(`- **Tiempo de ejecución**: ${result.executionTime ? `${result.executionTime} ms` : 'No disponible'}\n`);
+                hoverMessage.appendMarkdown(`### ${sessionStatusIcon} Session Information\n\n`);
+                hoverMessage.appendMarkdown(`- **Session ID**: \`${result.sessionId}\`\n`);
+                hoverMessage.appendMarkdown(`- **Status**: ${sessionStatus}\n`);
+                hoverMessage.appendMarkdown(`- **Execution time**: ${result.executionTime ? `${result.executionTime} ms` : 'Not available'}\n`);
                 
-                // Añadir comandos para gestionar la sesión
-                hoverMessage.appendMarkdown(`\n**Acciones de sesión:**\n`);
-                hoverMessage.appendMarkdown(`- [Nueva Sesión](command:laravel-tinker-notebook.newSession) | `);
-                hoverMessage.appendMarkdown(`[Cerrar Sesión](command:laravel-tinker-notebook.closeSession?${encodeURIComponent(JSON.stringify([result.sessionId]))})\n\n`);
+                // Add commands to manage the session
+                hoverMessage.appendMarkdown(`\n**Session actions:**\n`);
+                hoverMessage.appendMarkdown(`- [New Session](command:laravel-tinker-notebook.newSession) | `);
+                hoverMessage.appendMarkdown(`[Close Session](command:laravel-tinker-notebook.closeSession?${encodeURIComponent(JSON.stringify([result.sessionId]))})\n\n`);
                 
                 if (result.variables && result.variables.length > 0) {
-                    hoverMessage.appendMarkdown(`### 📊 Variables Disponibles\n\n`);
+                    hoverMessage.appendMarkdown(`### 📊 Available Variables\n\n`);
                     result.variables.forEach(variable => {
                         hoverMessage.appendMarkdown(`- \`${variable}\`\n`);
                     });
