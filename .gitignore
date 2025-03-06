@@ -11,6 +11,7 @@ out
 coverage
 test-workspace/
 test-evidence/
+docs/images/temp/
 
 # Logs y cache
 *.log
