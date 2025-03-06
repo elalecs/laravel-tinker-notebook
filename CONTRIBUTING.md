@@ -1,117 +1,117 @@
-# Contribuyendo a Laravel Tinker Notebook
+# Contributing to Laravel Tinker Notebook
 
-¡Gracias por tu interés en contribuir a Laravel Tinker Notebook! Este documento proporciona información sobre cómo configurar el entorno de desarrollo y cómo ejecutar las pruebas.
+Thank you for your interest in contributing to Laravel Tinker Notebook! This document provides information on how to set up the development environment and how to run tests.
 
-## Arquitectura
+## Architecture
 
-Laravel Tinker Notebook es una extensión para VS Code que permite ejecutar código PHP/Laravel directamente desde el editor, mostrando los resultados de forma inline. Para entender la arquitectura del proyecto, consulta [docs/architecture.md](docs/architecture.md).
+Laravel Tinker Notebook is a VS Code extension that allows you to execute PHP/Laravel code directly from the editor, displaying the results inline. To understand the project architecture, check out [docs/architecture.md](docs/architecture.md).
 
-## Configuración del entorno de desarrollo
+## Setting up the development environment
 
-1. Clona el repositorio:
+1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/laravel-tinker-notebook.git
    cd laravel-tinker-notebook
    ```
 
-2. Instala las dependencias:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Compila la extensión:
+3. Compile the extension:
    ```bash
    npm run compile
    ```
 
-4. Para ejecutar la extensión en modo de desarrollo, presiona F5 en VS Code para iniciar una nueva ventana con la extensión cargada.
+4. To run the extension in development mode, press F5 in VS Code to launch a new window with the extension loaded.
 
-## Estructura del proyecto
+## Project structure
 
 ```
 laravel-tinker-notebook/
-├── src/                    # Código fuente de la extensión
-│   ├── editor/             # Componentes relacionados con la edición
-│   ├── execution/          # Servicios para ejecutar código con Tinker
-│   ├── output/             # Procesamiento de la salida de Tinker
-│   └── utils/              # Utilidades generales
-├── test/                   # Pruebas
-│   ├── unit/               # Pruebas unitarias (Jest)
-│   │   ├── editor/         # Pruebas para componentes del editor
-│   │   └── execution/      # Pruebas para servicios de ejecución
-│   └── integration/        # Pruebas de integración (VS Code)
-├── docs/                   # Documentación
-└── dist/                   # Código compilado (generado)
+├── src/                    # Extension source code
+│   ├── editor/             # Components related to editing
+│   ├── execution/          # Services for executing code with Tinker
+│   ├── output/             # Processing Tinker output
+│   └── utils/              # General utilities
+├── test/                   # Tests
+│   ├── unit/               # Unit tests (Jest)
+│   │   ├── editor/         # Tests for editor components
+│   │   └── execution/      # Tests for execution services
+│   └── integration/        # Integration tests (VS Code)
+├── docs/                   # Documentation
+└── dist/                   # Compiled code (generated)
 ```
 
-## Pruebas
+## Testing
 
-El proyecto utiliza dos tipos de pruebas:
+The project uses two types of tests:
 
-### Pruebas unitarias
+### Unit tests
 
-Las pruebas unitarias utilizan Jest y se encuentran en el directorio `test/unit/`. Estas pruebas verifican componentes individuales sin necesidad de iniciar VS Code.
+Unit tests use Jest and are located in the `test/unit/` directory. These tests verify individual components without needing to start VS Code.
 
-Para ejecutar las pruebas unitarias:
+To run unit tests:
 
 ```bash
 npm run test
 ```
 
-Para ejecutar las pruebas unitarias en modo watch (útil durante el desarrollo):
+To run unit tests in watch mode (useful during development):
 
 ```bash
 npm run test:watch
 ```
 
-### Pruebas de integración
+### Integration tests
 
-Las pruebas de integración ejecutan la extensión en un entorno real de VS Code utilizando `@vscode/test-electron`. Estas pruebas se encuentran en el directorio `test/integration/`.
+Integration tests run the extension in a real VS Code environment using `@vscode/test-electron`. These tests are located in the `test/integration/` directory.
 
-Para ejecutar las pruebas de integración:
+To run integration tests:
 
 ```bash
 npm run test:integration
 ```
 
-### Ejecutar todas las pruebas
+### Running all tests
 
-Para ejecutar tanto las pruebas unitarias como las de integración:
+To run both unit and integration tests:
 
 ```bash
 npm run test:all
 ```
 
-## Mocking del módulo vscode
+## Mocking the vscode module
 
-Para las pruebas unitarias, necesitamos simular el módulo `vscode` que normalmente solo está disponible dentro del entorno de VS Code. Utilizamos un mock personalizado en `test/mocks/vscode.ts`.
+For unit tests, we need to simulate the `vscode` module which is normally only available within the VS Code environment. We use a custom mock in `test/mocks/vscode.ts`.
 
-## Consejos para desarrolladores
+## Tips for developers
 
-1. **Pruebas unitarias vs. integración**: 
-   - Usa pruebas unitarias para componentes aislados y lógica de negocio.
-   - Usa pruebas de integración para verificar que la extensión funciona correctamente en un entorno real de VS Code.
+1. **Unit tests vs. integration**: 
+   - Use unit tests for isolated components and business logic.
+   - Use integration tests to verify that the extension works correctly in a real VS Code environment.
 
 2. **Debugging**:
-   - Para depurar la extensión, inicia una sesión de depuración en VS Code (F5).
-   - Para depurar pruebas, puedes usar el comando `Debug Tests` en VS Code.
+   - To debug the extension, start a debugging session in VS Code (F5).
+   - To debug tests, you can use the `Debug Tests` command in VS Code.
 
-3. **Estructura de commits**:
-   - Usa mensajes de commit descriptivos que expliquen qué cambios se han realizado.
-   - Cada commit debe abordar un solo problema o característica.
+3. **Commit structure**:
+   - Use descriptive commit messages that explain what changes have been made.
+   - Each commit should address a single issue or feature.
 
-## Proceso de contribución
+## Contribution process
 
-1. Crea una rama para tu característica o corrección.
-2. Implementa tus cambios.
-3. Asegúrate de que todas las pruebas pasen.
-4. Envía un pull request con una descripción clara de los cambios.
+1. Create a branch for your feature or fix.
+2. Implement your changes.
+3. Make sure all tests pass.
+4. Submit a pull request with a clear description of the changes.
 
-## Directrices de código
+## Code guidelines
 
-- Sigue las convenciones de estilo de TypeScript.
-- Documenta las funciones y clases con comentarios JSDoc.
-- Mantén un alto porcentaje de cobertura de pruebas.
-- Utiliza nombres descriptivos para variables, funciones y clases.
+- Follow TypeScript style conventions.
+- Document functions and classes with JSDoc comments.
+- Maintain a high percentage of test coverage.
+- Use descriptive names for variables, functions, and classes.
 
-¡Gracias por contribuir a Laravel Tinker Notebook!
+Thank you for contributing to Laravel Tinker Notebook!

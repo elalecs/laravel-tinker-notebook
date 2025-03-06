@@ -10,6 +10,13 @@ const { TestSuite, Test } = require('./testClasses');
 // Importar los módulos de pruebas unitarias convertidas a integración
 const documentParserTests = require('./documentParser.test');
 const tinkerServiceTests = require('./tinkerService.test');
+const documentProviderTests = require('./documentProvider.test');
+const resultRendererTests = require('./resultRenderer.test');
+const baseFormatterTests = require('./baseFormatter.test');
+const laravelIntegrationTests = require('./laravelIntegration.test');
+const outputParserTests = require('./outputParser.test');
+const configProviderTests = require('./configProvider.test');
+const laravelDetectorTests = require('./laravelDetector.test');
 
 /**
  * Esta función es el punto de entrada principal para las pruebas de integración.
@@ -255,6 +262,13 @@ echo "Bloque 4";
   // Añadir las pruebas unitarias convertidas a integración
   await documentParserTests.run(suite);
   await tinkerServiceTests.run(suite);
+  await documentProviderTests.run(suite);
+  await resultRendererTests.run(suite);
+  await baseFormatterTests.run(suite);
+  await laravelIntegrationTests.run(suite);
+  await outputParserTests.run(suite);
+  await configProviderTests.run(suite);
+  await laravelDetectorTests.run(suite);
   
   // Ejecutar las pruebas
   await suite.run();
