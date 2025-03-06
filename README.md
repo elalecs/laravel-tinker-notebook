@@ -5,10 +5,11 @@ A VSCodeium extension that brings interactive PHP/Laravel code execution directl
 ## Features
 
 - Run PHP/Laravel code directly from your editor
-- View execution results inline
+- View execution results inline with advanced formatting options
 - Maintain state between code executions
 - Mix documentation with executable code
 - Organize code snippets for reuse
+- Export and share execution results in multiple formats
 
 ## Getting Started
 
@@ -27,6 +28,18 @@ A VSCodeium extension that brings interactive PHP/Laravel code execution directl
 ## Usage
 
 See [User Guide](./docs/user-guide.md) for detailed usage instructions.
+
+## Result Display Features
+
+### Smart Output Formatting
+- **JSON Formatting**: Automatically detects and formats JSON output for better readability
+- **Table Formatting**: Displays array data in structured table format
+- **PHP var_dump Formatting**: Improves readability of PHP var_dump output
+
+### Interactive Results
+- **Collapsible Results**: Toggle between expanded and collapsed views of large results
+- **Copy to Clipboard**: Easily copy results with a single click
+- **Export Options**: Export results to JSON, CSV, HTML, or plain text formats
 
 ## License
 

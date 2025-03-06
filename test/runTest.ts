@@ -12,9 +12,9 @@ async function main() {
     // Directorio temporal para los archivos de prueba
     const testWorkspace = path.resolve(__dirname, '../test-workspace');
     
-    console.log('Iniciando pruebas de integración...');
-    console.log(`Extensión: ${extensionDevelopmentPath}`);
-    console.log(`Pruebas: ${extensionTestsPath}`);
+    console.log('Starting integration tests...');
+    console.log(`Extension: ${extensionDevelopmentPath}`);
+    console.log(`Tests: ${extensionTestsPath}`);
     console.log(`Workspace: ${testWorkspace}`);
     
     // Asegurarse de que el directorio de workspace existe
@@ -32,9 +32,9 @@ async function main() {
       launchArgs: [testWorkspace]
     });
     
-    console.log('Pruebas de integración completadas con éxito');
+    console.log('Integration tests completed successfully');
   } catch (err) {
-    console.error('Error al ejecutar las pruebas:', err);
+    console.error('Error running tests:', err);
     process.exit(1);
   }
 }

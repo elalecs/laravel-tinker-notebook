@@ -1,0 +1,202 @@
+{
+  "name": "PHP",
+  "scopeName": "source.php",
+  "patterns": [
+    {
+      "include": "#language"
+    }
+  ],
+  "repository": {
+    "language": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#php-tag"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#variables"
+        },
+        {
+          "include": "#function-call"
+        },
+        {
+          "include": "#constants"
+        },
+        {
+          "include": "#support"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.php",
+          "match": "(//).*$\\n?",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.php"
+            }
+          }
+        },
+        {
+          "name": "comment.block.php",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.php"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.php"
+            }
+          }
+        }
+      ]
+    },
+    "php-tag": {
+      "patterns": [
+        {
+          "name": "meta.embedded.block.php",
+          "begin": "(?i)(<\\?(php|=)?)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.section.embedded.begin.php"
+            }
+          },
+          "end": "(\\?>)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.section.embedded.end.php"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#language"
+            }
+          ]
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.php",
+          "begin": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.php"
+            }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.php"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.php",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.php",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.php"
+            }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.php"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.php",
+              "match": "\\\\."
+            },
+            {
+              "name": "variable.other.php",
+              "match": "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+            }
+          ]
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.php",
+          "match": "\\b(if|else|elseif|while|do|for|foreach|break|continue|switch|case|default|return|require|include|require_once|include_once|function|global|static|try|catch|finally|throw)\\b"
+        },
+        {
+          "name": "storage.type.php",
+          "match": "\\b(class|interface|trait|extends|implements|use|namespace|abstract|final|public|protected|private|const|var)\\b"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.php",
+          "match": "\\$[a-zA-Z_][a-zA-Z0-9_]*"
+        }
+      ]
+    },
+    "function-call": {
+      "patterns": [
+        {
+          "name": "meta.function-call.php",
+          "match": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\(",
+          "captures": {
+            "1": {
+              "name": "entity.name.function.php"
+            }
+          }
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.php",
+          "match": "\\b(true|false|null|__FILE__|__LINE__|__DIR__|__FUNCTION__|__CLASS__|__TRAIT__|__METHOD__|__NAMESPACE__)\\b"
+        },
+        {
+          "name": "constant.numeric.php",
+          "match": "\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\b"
+        }
+      ]
+    },
+    "support": {
+      "patterns": [
+        {
+          "name": "support.function.php",
+          "match": "\\b(echo|print|isset|unset|empty|die|exit|eval|list|array|new|clone)\\b"
+        },
+        {
+          "name": "support.class.php",
+          "match": "\\b(Exception|ErrorException|Error|ParseError|TypeError|ArgumentCountError|ArithmeticError|AssertionError|DivisionByZeroError|CompileError|Closure|Generator|DateTime|DateTimeImmutable|DateTimeZone|DateInterval|DatePeriod|Throwable|Traversable|Iterator|IteratorAggregate|ArrayAccess|Serializable|Countable)\\b"
+        },
+        {
+          "name": "support.class.laravel.php",
+          "match": "\\b(App|Auth|Blade|Cache|Config|Cookie|Crypt|DB|Event|File|Gate|Hash|Lang|Log|Mail|Notification|Password|Queue|Redirect|Request|Response|Route|Schema|Session|Storage|URL|Validator|View)\\b"
+        }
+      ]
+    }
+  }
+}

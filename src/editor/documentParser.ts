@@ -5,6 +5,7 @@ export interface CodeBlock {
     range: vscode.Range;
     language: string;
     directives: string[];
+    sessionId?: string; // ID of the session associated with this code block
 }
 
 export class DocumentParser {
@@ -28,21 +29,50 @@ export class DocumentParser {
             const codeContent = match[2].trim();
             
             // Extract directives from comments
-            const directiveRegex = /\/\/\s*@(tinker-[a-z-]+)/g;
+            const directiveRegex = /\/\/\s*@(tinker-[a-z-]+)(?::(\S+))?/g;
             const directives: string[] = [];
             let directiveMatch;
+            let sessionId: string | undefined;
+            
             while ((directiveMatch = directiveRegex.exec(codeContent)) !== null) {
-                directives.push('@' + directiveMatch[1]);
+                const directiveName = '@' + directiveMatch[1];
+                directives.push(directiveName);
+                
+                // Process session-related directives
+                if (directiveName === '@tinker-use-session' && directiveMatch[2]) {
+                    // If there is a parameter for use-session, save it as session ID
+                    sessionId = directiveMatch[2];
+                }
             }
             
             codeBlocks.push({
                 code: codeContent,
                 range: new vscode.Range(startPos, endPos),
                 language: match[1],
-                directives
+                directives,
+                sessionId
             });
         }
         
         return codeBlocks;
+    }
+    
+    /**
+     * Determines if a code block has a specific directive
+     */
+    public hasDirective(codeBlock: CodeBlock, directive: string): boolean {
+        return codeBlock.directives.includes(directive);
+    }
+    
+    /**
+     * Extracts execution options based on directives
+     */
+    public getExecutionOptions(codeBlock: CodeBlock): { newSession: boolean, showRaw: boolean, hideResult: boolean, sessionId?: string } {
+        return {
+            newSession: this.hasDirective(codeBlock, '@tinker-new-session'),
+            showRaw: this.hasDirective(codeBlock, '@tinker-show-raw'),
+            hideResult: this.hasDirective(codeBlock, '@tinker-hide-result'),
+            sessionId: codeBlock.sessionId
+        };
     }
 }

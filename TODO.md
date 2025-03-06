@@ -2,67 +2,53 @@
 
 This document outlines pending tasks, improvements, and features for the Laravel Tinker Notebook extension.
 
-## Missing Tests
-
-
-
 ## Features to Implement
 
-### From README.md
+- [x] **Result Display Improvements**
+  - [x] **Output Format Support**
+    - [x] Add JSON formatter for object outputs
+    - [x] Add table formatter for array data
+    - [x] Add syntax highlighting for formatted outputs
+    - [x] Add format detection and auto-formatting
+  - [x] **Interactive Output UI**
+    - [x] Implement collapsible output sections
+    - [x] Add copy-to-clipboard functionality
+    - [x] Add expand/collapse all button
+    - [x] Improve error display with line highlighting
+  - [x] **Result Export Options**
+    - [x] Add ability to export results as JSON
+    - [x] Add ability to export results as CSV
+    - [x] Add ability to export results as HTML
+    - [x] Create export dialog with format options
+  - [x] **Test Result Display Features**
+    - [x] Unit tests for formatters
+    - [x] Integration tests for UI components
+    - [x] End-to-end tests for export functionality
 
-- [ ] **Maintain state between code executions**
-  - Implement session management for code blocks
-  - Add ability to reference variables across blocks
-  - Add visual indicator for active/inactive sessions
-  - Test it
-
-- [ ] **Organize code snippets for reuse**
-  - Add snippet library functionality
-  - Implement import/export of snippets
-  - Create UI for managing snippets
-  - Test it
-
-### From Documentation
-
-- [ ] **Dedicated Snippet Files**
-  - Implement support for `.tinker` and `.laravel-snippet` file extensions
-  - Add examples into examples/
-  - Add syntax highlighting for these file types
-  - Create snippets for common Laravel operations
-  - Test it
-
-- [ ] **Special Directives**
-  - Implement all directives mentioned in documentation:
-    - `@tinker-new-session` - Start a new Tinker session
-    - `@tinker-hide-result` - Hide execution results
-    - `@tinker-show-raw` - Show raw output without formatting
-  - Test it
-
-- [ ] **Result Display Improvements**
-  - Add support for different output formats (JSON, table, etc.)
-  - Implement collapsible output sections
-  - Add ability to export results to different formats
-  - Test it
-
-- [ ] **Error Handling**
-  - Improve error message display
-  - Add line-specific error highlighting
-  - Implement quick fixes for common errors
-  - Test it
+- [x] **Error Handling**
+  - [x] **Análisis de Errores**
+    - [x] Mejorar la detección de tipos de errores
+    - [x] Implementar análisis detallado de mensajes de error
+    - [x] Extraer información relevante (tipo, descripción, línea)
+    - [x] Crear mapeo de errores comunes de PHP/Laravel
+  - [x] **Visualización de Errores**
+    - [x] Mejorar el resaltado de líneas con errores
+    - [x] Implementar decoraciones visuales para diferentes tipos de errores
+    - [x] Crear mensajes de error más descriptivos y legibles
+    - [x] Añadir información contextual en los mensajes de error
+  - [x] **Soluciones Rápidas**
+    - [x] Implementar sugerencias para errores comunes
+    - [x] Añadir botones de acción para aplicar soluciones
+    - [x] Proporcionar enlaces a documentación relevante
+  - [x] **Testing**
+    - [x] Crear pruebas unitarias para el análisis de errores
+    - [x] Validar la precisión de la detección de errores
 
 ## UI/UX Improvements
 
-- [ ] **Code Block Decoration**
-  - Add status indicators for code blocks (executed, error, etc.)
-  - Implement syntax highlighting within Markdown
-  - Add line numbers for code blocks
-  - Test it
-
-- [ ] **Interactive Interface**
-  - Add ability to adjust block execution order
-  - Implement drag-and-drop for code blocks
-  - Add keyboard shortcuts for common operations
-  - Test it
+- [x] **Code Block Decoration**
+  - [x] Add status indicators for code blocks (executed, error, etc.)
+  - [x] Test it
 
 ## Performance Improvements
 
@@ -71,18 +57,12 @@ This document outlines pending tasks, improvements, and features for the Laravel
   - Add timeout handling for long-running operations
   - Improve resource cleanup
 
-- [ ] **Cache Results**
-  - Add result caching for identical code blocks
-  - Implement cache invalidation strategies
-  - Add cache visualization
 
 ## Documentation
 
-- [ ] **Enhanced User Guide**
-  - Add screenshots and examples
-  - Create video tutorials
+- [ ] **Mejorar los User Guide**
+  - Crear aquí una lista de tareas de cada uno de los screenshots y ejemplos requeridos
+  - Crear aquí una lista de tareas de cada uno de los pequeños screencasts que se necesitan para mostrar las funcionalidades
+  - Crear un script que capture screenshots de la extensión usando la instancia que se lanza en los tests
+  - Crear un script que capture screenshots de la extensión usando la instancia que se lanza en los tests
   - Document all features and options
-
-- [ ] **API Documentation**
-  - Document extension API for potential integrations
-  - Create developer guide for contributors

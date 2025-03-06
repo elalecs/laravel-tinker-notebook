@@ -1,0 +1,126 @@
+body {
+    font-family: var(--vscode-font-family);
+    color: var(--vscode-foreground);
+    background-color: var(--vscode-editor-background);
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    margin-bottom: 15px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 3px;
+}
+
+.button {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+.button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.snippet-list {
+    overflow-y: auto;
+    height: calc(100vh - 150px);
+}
+
+.snippet-item {
+    border: 1px solid var(--vscode-panel-border);
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: var(--vscode-editor-background);
+    transition: background-color 0.2s;
+}
+
+.snippet-item:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.snippet-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.snippet-title {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.snippet-description {
+    margin-bottom: 8px;
+    color: var(--vscode-descriptionForeground);
+}
+
+.snippet-meta {
+    font-size: 0.8em;
+    color: var(--vscode-descriptionForeground);
+    margin-bottom: 8px;
+}
+
+.snippet-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.tag {
+    background-color: var(--vscode-badge-background);
+    color: var(--vscode-badge-foreground);
+    padding: 2px 6px;
+    margin-right: 5px;
+    font-size: 0.8em;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+.category-header {
+    margin: 15px 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 0;
+    color: var(--vscode-descriptionForeground);
+}
+
+.empty-state p {
+    margin: 5px 0;
+}
+
+.insert-btn {
+    background-color: var(--vscode-button-background);
+}
+
+.delete-btn {
+    background-color: var(--vscode-errorForeground);
+}

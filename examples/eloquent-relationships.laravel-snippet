@@ -1,0 +1,26 @@
+<?php
+// Ejemplo de relaciones Eloquent en Laravel
+// Este snippet muestra cómo trabajar con relaciones entre modelos
+
+// Obtener un usuario con sus publicaciones
+$user = \App\Models\User::with('posts')->first();
+dump('Usuario: ' . $user->name);
+dump('Número de publicaciones: ' . $user->posts->count());
+
+// Obtener posts con sus comentarios
+$posts = \App\Models\Post::with('comments')->take(3)->get();
+foreach ($posts as $post) {
+    dump('Post: ' . $post->title);
+    dump('Comentarios: ' . $post->comments->count());
+    
+    // Mostrar el primer comentario
+    if ($post->comments->count() > 0) {
+        $comment = $post->comments->first();
+        dump('Primer comentario: ' . $comment->body);
+    }
+}
+
+// Relaciones de muchos a muchos
+$role = \App\Models\Role::with('users')->first();
+dump('Rol: ' . $role->name);
+dump('Usuarios con este rol: ' . $role->users->count());

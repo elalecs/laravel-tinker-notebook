@@ -1,0 +1,24 @@
+<?php
+// Ejemplo de autenticación con Laravel
+// Este snippet muestra cómo verificar la autenticación y realizar operaciones con el usuario actual
+
+// Comprobar si hay un usuario autenticado
+if (auth()->check()) {
+    $user = auth()->user();
+    dump('Usuario autenticado: ' . $user->name . ' (' . $user->email . ')');
+    
+    // Obtener los roles del usuario (asumiendo que tienes roles configurados)
+    if (method_exists($user, 'roles')) {
+        dump('Roles: ' . $user->roles()->pluck('name')->implode(', '));
+    }
+    
+    // Comprobar último acceso
+    dump('Último acceso: ' . $user->last_login_at);
+} else {
+    dump('No hay usuario autenticado');
+    
+    // Ejemplo de cómo autenticar manualmente a un usuario para pruebas
+    // $user = \App\Models\User::first();
+    // auth()->login($user);
+    // dump('Autenticado manualmente: ' . $user->name);
+}

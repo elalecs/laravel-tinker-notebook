@@ -1,0 +1,19 @@
+<?php
+// Ejemplo básico de archivo .tinker
+
+// Recuperar todos los usuarios
+$users = \App\Models\User::all();
+dump($users->count() . ' usuarios encontrados');
+
+// Obtener el primer usuario y mostrar sus datos
+$firstUser = $users->first();
+dump($firstUser);
+
+// Manipular datos básicos
+$numbers = collect([1, 2, 3, 4, 5]);
+$doubled = $numbers->map(function ($number) {
+    return $number * 2;
+});
+
+// Imprimir el resultado
+dump($doubled);

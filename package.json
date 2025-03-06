@@ -12,7 +12,10 @@
   ],
   "activationEvents": [
     "onLanguage:markdown",
-    "onLanguage:php"
+    "onLanguage:php",
+    "onLanguage:tinker",
+    "onLanguage:laravel-snippet",
+    "onView:laravel-tinker-notebook.snippetLibrary"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -20,18 +23,101 @@
       {
         "command": "laravel-tinker-notebook.runBlock",
         "title": "Run Code Block in Tinker"
+      },
+      {
+        "command": "laravel-tinker-notebook.createTinkerFile",
+        "title": "Create New Tinker File"
+      },
+      {
+        "command": "laravel-tinker-notebook.createSnippetFile",
+        "title": "Create New Laravel Snippet File"
+      },
+      {
+        "command": "laravel-tinker-notebook.createSession",
+        "title": "Laravel Tinker: Create New Session"
+      },
+      {
+        "command": "laravel-tinker-notebook.closeSession",
+        "title": "Laravel Tinker: Close Session"
+      },
+      {
+        "command": "laravel-tinker-notebook.switchSession",
+        "title": "Laravel Tinker: Switch Session"
+      },
+      {
+        "command": "laravel-tinker-notebook.showSessionVariables",
+        "title": "Laravel Tinker: Show Session Variables"
+      },
+      {
+        "command": "laravel-tinker-notebook.createSnippetFromSelection",
+        "title": "Laravel Tinker: Create Snippet from Selection"
+      },
+      {
+        "command": "laravel-tinker-notebook.exportSnippets",
+        "title": "Laravel Tinker: Export Snippets"
+      },
+      {
+        "command": "laravel-tinker-notebook.importSnippets",
+        "title": "Laravel Tinker: Import Snippets"
+      },
+      {
+        "command": "laravel-tinker-notebook.copyResult",
+        "title": "Laravel Tinker: Copy Result to Clipboard"
+      },
+      {
+        "command": "laravel-tinker-notebook.exportResult",
+        "title": "Laravel Tinker: Export Result"
+      },
+      {
+        "command": "laravel-tinker-notebook.toggleResultCollapse",
+        "title": "Laravel Tinker: Toggle Result Collapse"
+      },
+      {
+        "command": "laravel-tinker-notebook.expandAllResults",
+        "title": "Laravel Tinker: Expand All Results"
+      },
+      {
+        "command": "laravel-tinker-notebook.collapseAllResults",
+        "title": "Laravel Tinker: Collapse All Results"
+      },
+      {
+        "command": "laravel-tinker-notebook.applyErrorFix",
+        "title": "Laravel Tinker: Apply Error Fix"
       }
     ],
     "languages": [
       {
         "id": "tinker",
         "extensions": [
-          ".tinker"
+          ".tinker",
+          ".tinker.md"
         ],
         "aliases": [
           "Laravel Tinker"
         ],
         "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "laravel-snippet",
+        "extensions": [
+          ".laravel-snippet"
+        ],
+        "aliases": [
+          "Laravel Snippet"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tinker",
+        "scopeName": "source.php",
+        "path": "./syntaxes/php.tmLanguage.json"
+      },
+      {
+        "language": "laravel-snippet",
+        "scopeName": "source.php",
+        "path": "./syntaxes/php.tmLanguage.json"
       }
     ],
     "configuration": {
@@ -53,6 +139,42 @@
           "description": "Automatically detect Laravel project structure"
         }
       }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "laravel-tinker-notebook.snippetLibrary",
+          "name": "Laravel Tinker Snippets",
+          "icon": "$(snippet)",
+          "contextualTitle": "Laravel Tinker Snippet Library"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "laravel-tinker-notebook.createSnippetFromSelection",
+          "group": "laravel-tinker"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "laravel-tinker-notebook.createSnippetFromSelection",
+          "when": "view == laravel-tinker-notebook.snippetLibrary && editorHasSelection",
+          "group": "navigation"
+        },
+        {
+          "command": "laravel-tinker-notebook.importSnippets",
+          "when": "view == laravel-tinker-notebook.snippetLibrary",
+          "group": "navigation"
+        },
+        {
+          "command": "laravel-tinker-notebook.exportSnippets",
+          "when": "view == laravel-tinker-notebook.snippetLibrary",
+          "group": "navigation@1"
+        }
+      ]
     }
   },
   "scripts": {
