@@ -1,0 +1,78 @@
+{
+  "name": "laravel-tinker-notebook",
+  "displayName": "Laravel Tinker Notebook",
+  "description": "Interactive PHP/Laravel code execution in VSCodeium",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Notebooks"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown",
+    "onLanguage:php"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "laravel-tinker-notebook.runBlock",
+        "title": "Run Code Block in Tinker"
+      }
+    ],
+    "languages": [
+      {
+        "id": "tinker",
+        "extensions": [
+          ".tinker"
+        ],
+        "aliases": [
+          "Laravel Tinker"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "configuration": {
+      "title": "Laravel Tinker Notebook",
+      "properties": {
+        "laravelTinkerNotebook.phpPath": {
+          "type": "string",
+          "default": "php",
+          "description": "Path to PHP executable"
+        },
+        "laravelTinkerNotebook.artisanPath": {
+          "type": "string",
+          "default": "artisan",
+          "description": "Path to Laravel Artisan file relative to project root"
+        },
+        "laravelTinkerNotebook.autodetectProject": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect Laravel project structure"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run test && npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.86.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.3.3"
+  }
+}
