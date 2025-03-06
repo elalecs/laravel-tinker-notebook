@@ -3,9 +3,19 @@
 const path = require('path');
 const fs = require('fs');
 const { runTests } = require('@vscode/test-electron');
+const os = require('os');
 
 async function main() {
   try {
+    // Verificar si estamos en modo de captura de evidencia
+    const captureEvidence = process.argv.includes('--evidence') || process.argv.includes('--capture-evidence');
+    
+    // Verificar que estamos en macOS si se solicita captura de evidencia
+    if (captureEvidence && os.platform() !== 'darwin') {
+      console.error('\n❌ La captura de evidencia solo está disponible en macOS');
+      console.error('   Ejecute sin el flag --evidence o use macOS\n');
+      process.exit(1);
+    }
     
     // El directorio raíz de la extensión
     const extensionDevelopmentPath = path.resolve(__dirname, '../../');
@@ -42,7 +52,11 @@ async function main() {
       version: 'stable',
       extensionDevelopmentPath,
       extensionTestsPath,
-      launchArgs: [testWorkspace]
+      launchArgs: [testWorkspace],
+      // Pasar variables de entorno para indicar si se debe capturar evidencia
+      extensionTestsEnv: {
+        CAPTURE_EVIDENCE: captureEvidence ? 'true' : 'false'
+      }
     });
     
     console.log('\n✅ Pruebas de integración completadas con éxito');
@@ -55,4 +69,9 @@ async function main() {
   }
 }
 
-main();
+// Verificar si se está ejecutando directamente o como módulo
+if (require.main === module) {
+  main();
+}
+
+module.exports = { main };

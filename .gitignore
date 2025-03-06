@@ -10,6 +10,7 @@ out
 .vscode-test/
 coverage
 test-workspace/
+test-evidence/
 
 # Logs y cache
 *.log
