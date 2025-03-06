@@ -1,5 +1,37 @@
+# Dependencias
 node_modules
-.vscode-test/
-*.vsix
-.DS_Store
+
+# Archivos de compilación
 dist
+out
+*.vsix
+
+# Archivos de test
+.vscode-test/
+coverage
+test-workspace/
+
+# Logs y cache
+*.log
+npm-debug.log*
+.npm
+.eslintcache
+.tsbuildinfo
+
+# Archivos de configuración local
+.env
+.env.*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos específicos de editores
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.sublime-*
+.windsurfrules
+.cursorrules

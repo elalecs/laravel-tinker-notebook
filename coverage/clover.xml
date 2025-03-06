@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741270690910" clover="3.2.0">
-  <project timestamp="1741270690910" name="All files">
-    <metrics statements="145" coveredstatements="0" conditionals="39" coveredconditionals="0" methods="27" coveredmethods="0" elements="211" coveredelements="0" complexity="0" loc="145" ncloc="145" packages="5" files="8" classes="8"/>
+<coverage generated="1741286109804" clover="3.2.0">
+  <project timestamp="1741286109804" name="All files">
+    <metrics statements="145" coveredstatements="15" conditionals="39" coveredconditionals="0" methods="27" coveredmethods="1" elements="211" coveredelements="16" complexity="0" loc="145" ncloc="145" packages="5" files="8" classes="8"/>
     <package name="src">
       <metrics statements="37" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <file name="extension.ts" path="/Users/elalecs/Projects/Utils/laravel-tinker-notebook/src/extension.ts">
@@ -46,26 +46,26 @@
       </file>
     </package>
     <package name="src.editor">
-      <metrics statements="44" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="11" coveredmethods="0"/>
+      <metrics statements="44" coveredstatements="15" conditionals="10" coveredconditionals="0" methods="11" coveredmethods="1"/>
       <file name="documentParser.ts" path="/Users/elalecs/Projects/Utils/laravel-tinker-notebook/src/editor/documentParser.ts">
-        <metrics statements="17" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
+        <metrics statements="17" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
       </file>
       <file name="documentProvider.ts" path="/Users/elalecs/Projects/Utils/laravel-tinker-notebook/src/editor/documentProvider.ts">
         <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
