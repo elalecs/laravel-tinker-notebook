@@ -1,5 +1,10 @@
 {
   "name": "laravel-tinker-notebook",
+  "publisher": "elalecs",
+  "author": {
+    "name": "elalecs",
+    "email": "aztkgeek@gmail.com"
+  },
   "displayName": "Laravel Tinker Notebook",
   "description": "A powerful VS Code extension for interactive PHP/Laravel code execution in Markdown notebooks with Jupyter-like functionality",
   "version": "0.1.0",
