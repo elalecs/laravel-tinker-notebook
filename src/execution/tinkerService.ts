@@ -148,7 +148,7 @@ export class TinkerExecutionService extends EventEmitter {
                 output: '',
                 error: error instanceof Error ? error.message : String(error),
                 isRaw: options.showRaw,
-                sessionId: this.currentSessionId,
+                sessionId: this.currentSessionId || undefined,
                 sessionActive: !!this.currentSessionId
             };
         }

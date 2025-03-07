@@ -1,10 +1,15 @@
 {
   "name": "laravel-tinker-notebook",
   "displayName": "Laravel Tinker Notebook",
-  "description": "Interactive PHP/Laravel code execution in VSCodeium",
+  "description": "A powerful VS Code extension for interactive PHP/Laravel code execution in Markdown notebooks with Jupyter-like functionality",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elalecs/laravel-tinker-notebook.git"
+  },
+  "license": "GPL-3.0",
   "engines": {
-    "vscode": "^1.60.0"
+    "vscode": "^1.86.0"
   },
   "categories": [
     "Programming Languages",

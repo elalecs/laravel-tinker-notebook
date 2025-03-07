@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { CodeBlock } from './documentParser';
+import { CodeBlock, DocumentParser } from './documentParser';
 import { OutputFormatterFactory } from './outputFormatters';
 import * as crypto from 'crypto';
 
@@ -10,6 +10,7 @@ export interface ExecutionResult {
     sessionId?: string; // ID of the session that executed the code
     sessionActive?: boolean; // Indicates if the session is active
     variables?: string[]; // Variables available in the session
+    executionTime?: number; // Execution time in milliseconds
 }
 
 export class ResultRenderer {
@@ -53,9 +54,7 @@ export class ResultRenderer {
                 color: new vscode.ThemeColor('button.foreground'),
                 margin: '0 0 0 10px',
                 width: 'max-content',
-                height: '22px',
-                borderRadius: '3px',
-                padding: '2px 8px'
+                height: '22px'
             },
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
         });
@@ -68,9 +67,7 @@ export class ResultRenderer {
                 color: new vscode.ThemeColor('editor.background'),
                 margin: '0 0 0 10px',
                 width: 'max-content',
-                height: '22px',
-                borderRadius: '3px',
-                padding: '2px 8px'
+                height: '22px'
             },
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
         });
@@ -83,9 +80,7 @@ export class ResultRenderer {
                 color: new vscode.ThemeColor('editor.background'),
                 margin: '0 0 0 10px',
                 width: 'max-content',
-                height: '22px',
-                borderRadius: '3px',
-                padding: '2px 8px'
+                height: '22px'
             },
             rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
         });
@@ -1115,7 +1110,7 @@ export class ResultRenderer {
             
             if (result.error) {
                 // Analyze the error to get detailed information
-                const codeBlockForFix = { range: new vscode.Range(0, 0, 0, 0), code: '', language: '' };
+                const codeBlockForFix = { range: new vscode.Range(0, 0, 0, 0), code: '', language: '', directives: [] };
                 if (resultId && resultId.startsWith('hover-')) {
                     // If it's a hover, use an empty code block
                     codeBlockForFix.range = new vscode.Range(0, 0, 0, 0);
